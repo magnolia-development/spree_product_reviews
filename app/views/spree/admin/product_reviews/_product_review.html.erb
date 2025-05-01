@@ -1,0 +1,30 @@
+<tr id="<%= dom_id(product_review) %>">
+  <% unless product_review.variant.is_master? %>
+    <td><%= product_review.variant.options_text %></td>
+  <% end %>
+  <td><%= product_review.attachment.filename %></td>
+  <td><%= number_to_human_size(product_review.attachment.byte_size) %></td>
+  <td class="actions">
+    <% if can? :edit, product_review %>
+      <span data-toggle="modal" data-target="#modal">
+        <%= link_to_edit(
+          product_review,
+          no_text: true,
+          url: spree.edit_admin_product_product_review(product_review.product, product_review),
+          data: {
+            turbo_frame: "dialog_modal",
+          },
+        ) %>
+      </span>
+    <% end %>
+    <% if can? :destroy, product_review %>
+      <%= link_to_delete(
+        product_review,
+        {
+          url: spree.admin_product_product_review(product_review.product, product_review),
+          no_text: true,
+        },
+      ) %>
+    <% end %>
+  </td>
+</tr>

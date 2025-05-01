@@ -2,4 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  spree:
+    product_reviews: "Product Reviews"
+    new_product_review: "Leave a new product review"
+    review_title: "Review Title"
+    product_review_rating: "Rating"
