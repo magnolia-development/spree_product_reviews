@@ -1,0 +1,31 @@
+<table class="table">
+  <thead>
+    <% colspan = @product.has_variants? ? 5 : 4 %>
+    <tr>
+      <% if @product.has_variants? %>
+        <th><%= Spree.t(:variant) %></th>
+      <% end %>
+      <th><%= Spree.t(:review_title) %></th>
+      <th><%= Spree.t(:product_review_rating) %></th>
+      <th><%= Spree.t(:date) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "spree/admin/product_reviews/product_review",
+    collection: @product_reviews, cached: spree_base_cache_scope %>
+    <% if @product_reviews.empty? %>
+      <tr>
+        <td colspan="<%= colspan %>">
+          <div
+            class="
+              text-muted p-5 d-flex align-items-center w-100 justify-content-center
+            "
+          >
+            <%= Spree.t(:no_resource_found, resource: Spree.t(:product_reviews)) %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
