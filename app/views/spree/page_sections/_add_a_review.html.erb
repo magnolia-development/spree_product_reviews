@@ -1,0 +1,18 @@
+<% cache_unless page_builder_enabled?, spree_base_cache_scope.call(section) do %>
+  <% if section.blocks.any? %>
+    <div class="page-container" style="<%= section_styles(section) %>">
+      <% section.blocks.includes(:rich_text_text, :links).each do |block| %>
+        <% case block.type %>
+        <% when 'Spree::PageBlocks::Heading' %>
+          <h2 class="<%= block.preferred_size == 'small' ? 'text-lg' : (block.preferred_size == 'medium' ? 'text-xl' : 'text-2xl lg:text-5xl') %> font-medium" <%= block_attributes(block) %>>
+            <%= block.text %>
+          </h2>
+        <% when 'Spree::PageBlocks::Text' %>
+          <div class="max-w-prose text-xl leading-relaxed font-normal" <%= block_attributes(block) %>>
+            <%= block.text %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

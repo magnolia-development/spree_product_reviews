@@ -7,3 +7,11 @@ en:
     new_product_review: "Leave a new product review"
     review_title: "Review Title"
     product_review_rating: "Rating"
+    add_a_review_heading: "Leave a Review"
+    add_a_review_text: "We value your feedback! Please leave a review for this product."
+    product_reviews_display_style:
+      label: "Display style"
+      inline: "Inline"
+      stacked: "Stacked"
+
+
