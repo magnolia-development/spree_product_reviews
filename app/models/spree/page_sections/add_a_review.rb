@@ -37,6 +37,7 @@ module Spree
             preferred_width_desktop: "60",
             preferred_container_alignment: "center"
           ),
+          Spree::PageBlocks::ProductReviewForm.new
         ]
       end
 
@@ -44,6 +45,7 @@ module Spree
         [
           Spree::PageBlocks::Heading,
           Spree::PageBlocks::Text,
+          Spree::PageBlocks::Image,
         ]
       end
 

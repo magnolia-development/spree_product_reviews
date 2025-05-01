@@ -9,9 +9,14 @@ en:
     product_review_rating: "Rating"
     add_a_review_heading: "Leave a Review"
     add_a_review_text: "We value your feedback! Please leave a review for this product."
-    product_reviews_display_style:
-      label: "Display style"
-      inline: "Inline"
-      stacked: "Stacked"
+    page_blocks:
+      product_review_form:
+        button_text_default: "Add your review"
+        placeholder_default: "Write your review here..."
+    page_sections:
+      product_reviews:
+        label: "Display style"
+        inline: "Inline"
+        stacked: "Stacked"
 
 
