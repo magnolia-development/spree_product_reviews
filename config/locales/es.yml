@@ -1,0 +1,21 @@
+# Archivo de localización para Español. Añada más archivos en este directorio para otros idiomas.
+# Vea https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale para puntos de partida.
+
+es:
+  spree:
+    product_reviews: "Reseñas de Productos"
+    new_product_review: "Dejar una nueva reseña de producto"
+    review_title: "Título de la Reseña"
+    product_review_rating: "Calificación"
+    add_a_review_heading: "Dejar una Reseña"
+    add_a_review_text: "¡Valoramos tu opinión! Por favor, deja una reseña para este producto."
+    page_blocks:
+      product_review_form:
+        button_text_default: "Añadir tu reseña"
+        placeholder_default: "Escribe tu reseña aquí..."
+    page_sections:
+      product_reviews:
+        label: "Estilo de visualización"
+        inline: "En línea"
+        stacked: "Apilado"
+
