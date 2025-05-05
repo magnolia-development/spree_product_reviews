@@ -10,6 +10,7 @@ Spree::Core::Engine.add_routes do
   end
 
   resources :products, only: [] do
-    resources :product_reviews, only: [:index, :new, :create]
+    resources :product_reviews, only: [:index, :new, :create], controller: 'spree_product_reviews/spree/product_reviews' do
+    end
   end
 end

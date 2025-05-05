@@ -1,0 +1,59 @@
+<div class="container mx-auto py-8">
+  <h1 class="text-2xl font-bold mb-6"><%= Spree.t('new_product_review') %> - <%= product.name %></h1>
+
+  <div class="review-form-container mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+    <%= form_for [:product, product_review], url: product_product_reviews_path(product) do |f| %>
+      <% if product_review.errors.any? %>
+        <div class="error-messages bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <h2 class="font-bold mb-2"><%= pluralize(product_review.errors.count, "error") %> prohibited this review from being saved:</h2>
+          <ul class="list-disc list-inside">
+            <% product_review.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group mb-4">
+        <%= f.label :title, Spree.t('review_title'), class: 'block mb-2 font-medium' %>
+        <%= f.text_field :title, required: true, class: 'focus:border-primary focus:ring-primary text-base bg-accent rounded-md border-accent py-2 px-4 w-full' %>
+      </div>
+
+      <div class="form-group mb-4">
+        <%= f.label :rating, Spree.t('product_review_rating'), class: 'block mb-2 font-medium' %>
+        <div class="flex items-center mb-2">
+          <% (1..5).each do |i| %>
+            <div class="flex items-center mr-4">
+              <%= f.radio_button :rating, i, required: true, class: 'mr-1' %>
+              <%= label_tag "product_review_rating_#{i}", "#{i} #{'★' * i}", class: 'text-yellow-400' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group mb-4">
+        <%= f.label :review, Spree.t('page_blocks.product_review_form.placeholder_default'), class: 'block mb-2 font-medium' %>
+        <%= f.text_area :review, required: true, class: 'focus:border-primary focus:ring-primary text-base bg-accent rounded-md border-accent py-2 px-4 w-full', rows: 4 %>
+      </div>
+
+      <div class="form-group mb-4">
+        <%= f.label :purchase_date, "Purchase Date (optional)", class: 'block mb-2 font-medium' %>
+        <%= f.date_field :purchase_date, class: 'focus:border-primary focus:ring-primary text-base bg-accent rounded-md border-accent py-2 px-4 w-full' %>
+      </div>
+
+      <div class="form-group mb-4">
+        <div class="flex items-center">
+          <%= f.check_box :show_identifier, class: 'mr-2' %>
+          <%= f.label :show_identifier, "Show my name in the review", class: 'text-sm text-gray-600' %>
+        </div>
+      </div>
+
+      <%= f.submit Spree.t('page_blocks.product_review_form.button_text_default'), class: 'btn-primary py-2 px-6 rounded-md text-white font-medium' %>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to Spree.t(:back_to_product), product_path(product), class: 'text-primary hover:underline' %>
+  </div>
+</div>
+

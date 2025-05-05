@@ -46,6 +46,7 @@ module Spree
           Spree::PageBlocks::Heading,
           Spree::PageBlocks::Text,
           Spree::PageBlocks::Image,
+          Spree::PageBlocks::ProductReviewForm,
         ]
       end
 
