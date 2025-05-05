@@ -12,6 +12,7 @@ module Spree
     def create
       @product_review = Spree::ProductReview.new(product_review_params)
       @product_review.product = @product
+      @product_review.purchase_date = spree_current_user.recent_purchase_date_for @product
       @product_review.user = spree_current_user
       @product_review.ip_address = request.remote_ip
       @product_review.locale = I18n.locale.to_s

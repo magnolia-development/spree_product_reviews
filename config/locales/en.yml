@@ -8,6 +8,7 @@ en:
     review_title: "Review Title"
     product_review_rating: "Rating"
     add_a_review_heading: "Leave a Review"
+    thanks_for_review_heading: "Thank you for your review!"
     add_a_review_text: "We value your feedback! Please leave a review for this product."
     page_blocks:
       product_review_form:
@@ -15,10 +16,17 @@ en:
         placeholder_default: "Write your review here..."
     page_sections:
       product_reviews:
-        label: "Display style"
-        inline: "Inline"
-        stacked: "Stacked"
-        pending_product_review_instructions: "Thanks for your review! It is currently pending approval."
         reviewed_by: "Reviewed by:"
-
+        pending_product_review_instructions: "Thanks for your review! It is currently pending approval."
+    admin:
+      page_sections:
+        product_reviews:
+          display_style:
+            label: "Display style"
+            inline: "Inline"
+            stacked: "Stacked"
+          heading_labels:
+            no_review_yet: "Customer needs to review"
+            review_pending: "Customer's review is pending"
+            review_approved: "Customer's review was approved"
 

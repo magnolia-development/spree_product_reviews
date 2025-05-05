@@ -6,9 +6,12 @@ module Spree
       TOP_BORDER_WIDTH_DEFAULT = 0
       BOTTOM_BORDER_WIDTH_DEFAULT = 0
 
-      preference :heading, :string, default: "more than just your average brand"
+      preference :heading_no_review_yet, :string, default: Spree.t("add_a_review_heading")
+      preference :heading_pending_review, :string, default: Spree.t("thanks_for_review_heading")
+      preference :heading_review_approved, :string, default: Spree.t("thanks_for_review_heading")
+
       preference :heading_size, :string, default: "large"
-      preference :heading_alignment, :string, default: "center"
+      preference :heading_alignment, :string, default: "left"
       preference :display, :string, default: "stacked" # "stacked" or "inline"
 
       def self.role
@@ -27,15 +30,14 @@ module Spree
         @default_blocks.presence || [
           Spree::PageBlocks::Heading.new(
             text: Spree.t(:add_a_review_heading),
-            preferred_text_alignment: "center",
-            preferred_bottom_padding: 60
+            preferred_text_alignment: "left",
+            preferred_bottom_padding: 30
           ),
           Spree::PageBlocks::Text.new(
             text: Spree.t(:add_a_review_text),
-            preferred_text_alignment: "center",
-            preferred_bottom_padding: 60,
-            preferred_width_desktop: "60",
-            preferred_container_alignment: "center"
+            preferred_text_alignment: "left",
+            preferred_bottom_padding: 30,
+            preferred_width_desktop: "75",
           ),
           Spree::PageBlocks::ProductReviewForm.new
         ]

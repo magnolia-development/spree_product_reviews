@@ -9,6 +9,12 @@ module SpreeProductReviews
         product_reviews.find_by(product_id: product.id, user_id: id)
       end
 
+      def recent_purchase_date_for(product)
+        self.orders.joins(:line_items, :variants).where(
+          spree_variants: { product_id: product.id }
+        ).order('spree_orders.completed_at DESC').first&.completed_at
+      end
+
       ::Spree::Product.prepend self
     end
   end
