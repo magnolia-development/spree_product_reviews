@@ -2,7 +2,7 @@
   <h1 class="text-2xl font-bold mb-6"><%= Spree.t('new_product_review') %> - <%= @product.name %></h1>
 
   <div class="review-form-container mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
-    <%= form_for [:product, product_review], url: product_product_reviews_path(@product) do |f| %>
+    <%= form_for [:product, product_review], url: spree.product_product_reviews_path(@product) do |f| %>
       <% if product_review.errors.any? %>
         <div class="error-messages bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           <h2 class="font-bold mb-2"><%= pluralize(product_review.errors.count, "error") %> prohibited this review from being saved:</h2>
@@ -50,10 +50,6 @@
 
       <%= f.submit Spree.t('page_blocks.product_review_form.button_text_default'), class: 'btn-primary py-2 px-6 rounded-md text-white font-medium' %>
     <% end %>
-  </div>
-
-  <div class="mt-4">
-    <%= link_to Spree.t(:back_to_product), product_path(@product), class: 'text-primary hover:underline' %>
   </div>
 </div>
 
