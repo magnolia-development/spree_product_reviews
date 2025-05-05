@@ -12,7 +12,12 @@
             <%= block.text %>
           </div>
         <% when 'Spree::PageBlocks::ProductReviewForm' %>
-          <%= render "spree/product_reviews/form", product: @product, product_review: Spree::ProductReview.new(product: @product) %>
+          <% user_product_review = current_user&.product_review_for(@product) %>
+          <% if user_product_review.present? %>
+            <%= render "spree/product_reviews/pending", product_review: user_product_review %>
+          <% else %>
+            <%= render "spree/product_reviews/form", product: @product, product_review: Spree::ProductReview.new(product: @product) %>
+          <% end %>
         <% end %>
       <% end %>
     </div>

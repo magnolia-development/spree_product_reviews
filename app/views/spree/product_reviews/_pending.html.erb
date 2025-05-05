@@ -1,0 +1,7 @@
+<% return unless defined?(product_review) && product_review.present? %>
+
+<div class="container mx-auto py-8">
+  <div class="review-form-container mb-8 p-6 border border-gray-200 rounded-lg shadow-sm">
+    <p class="text-sm text-gray-600 mb-4"><%= Spree.t('page_sections.product_reviews.pending_product_review_instructions') %></p>
+    <%= render "spree/product_reviews/review", product_review: product_review %>
+</div>

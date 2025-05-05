@@ -5,13 +5,11 @@ module Spree
     before_action :authenticate_user!, only: [:new, :create]
 
     def new
-      binding.pry
       @product_review = Spree::ProductReview.new(product: @product)
       authorize! :create, @product_review
     end
 
     def create
-      binding.pry
       @product_review = Spree::ProductReview.new(product_review_params)
       @product_review.product = @product
       @product_review.user = spree_current_user
@@ -29,7 +27,6 @@ module Spree
     end
 
     def index
-      binding.pry
       @product_reviews = @product.product_reviews.approved.order(created_at: :desc)
     end
 

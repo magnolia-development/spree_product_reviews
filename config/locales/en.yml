@@ -18,5 +18,7 @@ en:
         label: "Display style"
         inline: "Inline"
         stacked: "Stacked"
+        pending_product_review_instructions: "Thanks for your review! It is currently pending approval."
+        reviewed_by: "Reviewed by:"
 
 

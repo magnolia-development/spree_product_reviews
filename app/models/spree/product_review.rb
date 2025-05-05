@@ -17,4 +17,16 @@ class Spree::ProductReview < Spree::Base
   def reject!
     update(approved: false)
   end
+
+  def reviewer_name
+    if user&.name && show_identifier
+      user.name
+    else
+      "Anonymous"
+    end
+  end
+
+  def review_date
+    created_at.strftime("%B %d, %Y at %I:%M%p")
+  end
 end
