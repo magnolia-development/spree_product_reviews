@@ -6,6 +6,18 @@ on:
     branches: [ "main" ]
 jobs:
   test:
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      DISABLE_SPRING: true
+    environment:
+      BUNDLE_JOBS: 4
+      BUNDLE_RETRY: 3
+      BUNDLE_PATH: ~/spree/vendor/bundle
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      DISABLE_SPRING: true
+    working_directory: ~/spree
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -17,67 +29,35 @@ jobs:
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-      DISABLE_SPRING: true
-    environment:
-      BUNDLE_JOBS: 4
-      BUNDLE_RETRY: 3
-      BUNDLE_PATH: ~/spree/vendor/bundle
-    working_directory: ~/spree
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # - name: Install libvips
-      #   command: sudo apt-get update && sudo apt-get install libvips
-      #
-      - name: Set bundle path
-        command: bundle config --local path ~/spree/vendor/bundle
-
-      - name: Ensure bundle Install
-        command: bundle check || bundle install
-
-      - name: Create test app
-        command: bundle exec rake test_app
-
-      - name: Run Rspec
-        command: bundle exec rspec
-
-      # - store_test_results:
-      #     path: ~/rspec
-      # - store_artifacts:
-      #     path: tmp/capybara
-
-      # - name: Checkout code
-      #   uses: actions/checkout@v4
-      #
-      # - name: Install Ruby and gems
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     ruby-version: 3.3
-      #     bundler-cache: true
-      #
-      # - name: Install dependencies
-      #   run: bundle install --jobs 4 --retry 3
-      #
-      # - name: Generate test application
-      #   run: |
-      #     # Load Rails env from dummy app if it exists
-      #     if [ -d "spec/dummy" ]; then
-      #       echo "Using existing dummy app"
-      #     else
-      #       echo "Generating new dummy app"
-      #       RAILS_ENV=test bundle exec rake test_app
-      #     fi
-      #
-      # - name: Set up database schema
-      #   run: |
-      #     # Set up the database using the dummy app
-      #     cd spec/dummy
-      #     RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
-      #     RAILS_ENV=test bundle exec rake db:test:prepare
-      #
-      # - name: Run tests
-      #   run: bundle exec rspec
+      
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3
+          bundler-cache: true
+      
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+      
+      - name: Generate test application
+        run: |
+          # Load Rails env from dummy app if it exists
+          if [ -d "spec/dummy" ]; then
+            echo "Using existing dummy app"
+          else
+            echo "Generating new dummy app"
+            RAILS_ENV=test bundle exec rake test_app
+          fi
+      
+      - name: Set up database schema
+        run: |
+          # Set up the database using the dummy app
+          cd spec/dummy
+          RAILS_ENV=test bundle exec rake db:drop db:create db:migrate
+          RAILS_ENV=test bundle exec rake db:test:prepare
+      
+      - name: Run tests
+        run: bundle exec rspec
