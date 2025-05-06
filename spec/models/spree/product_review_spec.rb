@@ -52,4 +52,77 @@ RSpec.describe Spree::ProductReview, type: :model do
       expect(build(:product_review, review: nil)).not_to be_valid
     end
   end
+
+  context "scopes" do
+    describe ".approved" do
+      it "returns only approved reviews" do
+        approved_review = create(:product_review, approved: true)
+        pending_review = create(:product_review, approved: false)
+
+        expect(described_class.approved).to include(approved_review)
+        expect(described_class.approved).not_to include(pending_review)
+      end
+    end
+
+    describe ".pending" do
+      it "returns only pending reviews" do
+        approved_review = create(:product_review, approved: true)
+        pending_review = create(:product_review, approved: false)
+
+        expect(described_class.pending).to include(pending_review)
+        expect(described_class.pending).not_to include(approved_review)
+      end
+    end
+  end
+
+  context "instance methods" do
+    let(:product_review) { create(:product_review) }
+
+    describe "#approve!" do
+      it "approves the review" do
+        product_review.approve!
+        expect(product_review.approved).to be true
+      end
+    end
+
+    describe "#reject!" do
+      it "rejects the review" do
+        product_review.reject!
+        expect(product_review.approved).to be false
+      end
+    end
+
+    describe "#reviewer_name" do
+      context "when user is present and show_identifier is true" do
+        it "returns the user's name" do
+          product_review.show_identifier = true
+          product_review.user = create(:user, name: "John Doe")
+          expect(product_review.reviewer_name).to eq("John Doe")
+        end
+      end
+
+      context "when user is present and show_identifier is false" do
+        it "returns 'Anonymous'" do
+          product_review.show_identifier = false
+          product_review.user = create(:user, name: "John Doe")
+          expect(product_review.reviewer_name).to eq("Anonymous")
+        end
+      end
+
+      context "when user is not present" do
+        it "returns 'Anonymous'" do
+          product_review.user = nil
+          expect(product_review.reviewer_name).to eq("Anonymous")
+        end
+      end
+    end
+
+    describe "#review_date" do
+      it "returns the formatted created_at date" do
+        product_review.created_at = Time.zone.local(2023, 10, 1, 12, 0, 0)
+        expect(product_review.review_date).to eq("October 01, 2023 at 12:00PM")
+      end
+    end
+  end
 end
+
