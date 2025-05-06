@@ -1,0 +1,58 @@
+<% cache_unless page_builder_enabled?, spree_base_cache_scope.call(section) do %>
+  <% if current_user %>
+    <% current_user_has_purchased = !!current_user.recent_purchase_date_for(@product) %>
+    <% if current_user_has_purchased || section.preferred_allow_unverified_purchase_reviews %>
+      <% if section.blocks.any? %>
+        <%
+          heading = section.preferred_heading_no_review_yet
+          user_has_reviewed = current_user.product_review_for(@product).present?
+          if user_has_reviewed
+            heading = section.preferred_heading_pending_review if current_user.product_review_for(@product).pending?
+            heading = section.preferred_heading_review_approved if current_user.product_review_for(@product).approved?
+          end
+
+          if section.preferred_display == "stacked"
+            direction = "flex-col"
+            content_classes = ""
+          else
+            direction = "flex-row gap-4"
+            content_classes = "py-8"
+          end
+        %>
+        <div class="page-container" style="<%= section_styles(section) %>">
+          <div class="flex <%= direction %>">
+            <div class="<%= content_classes %>">
+              <h2 class="<%= section.preferred_heading_size == 'small' ? 'text-lg' : (section.preferred_heading_size == 'medium' ? 'text-2xl' : 'text-2xl') %> font-medium">
+                <%= heading %>
+              </h2>
+              <% section.blocks.includes(:rich_text_text).each do |block| %>
+                <% case block.type %>
+                <% when "Spree::PageBlocks::Heading" %>
+                  <h3 class="<%= block.preferred_size == 'small' ? 'text-lg' : (block.preferred_size == 'medium' ? 'text-2xl' : 'text-2xl') %> font-medium" <%= block_attributes(block) %>>
+                    <%= block.text %>
+                  </h3>
+                <% when "Spree::PageBlocks::Text" %>
+                  <div class="max-w-prose text-md leading-relaxed font-normal" <%= block_attributes(block) %>>
+                    <%= block.text %>
+                  </div>
+                <% when "Spree::PageBlocks::Image" %>
+                  <div class="flex justify-center" <%= block_attributes(block) %>>
+                    <%= render "spree/page_blocks/image", block: block %>
+                  </div>
+                <% when "Spree::PageBlocks::ProductReviewForm" %>
+            </div>
+            <div class="flex-1">
+                  <% user_product_review = current_user&.product_review_for(@product) %>
+                  <% if user_product_review.present? %>
+                    <%= render "spree/product_reviews/pending", product_review: user_product_review %>
+                  <% else %>
+                    <%= render "spree/product_reviews/form", product: @product, product_review: Spree::ProductReview.new(product: @product), block: block %>
+                  <% end %>
+          </div>
+        </div>
+                <% end %>
+              <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

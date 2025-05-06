@@ -3,6 +3,8 @@ module Spree
     include CanCan::Ability
 
     def initialize(user)
+      user ||= Spree.user_class.new
+
       if user.has_spree_role? "admin"
         can :manage, Spree::ProductReview
       elsif user.has_spree_role? "user"
@@ -14,10 +16,11 @@ module Spree
           review.user_id == user.id
         end
       else
-        can :read, Spree::ProductReview, public: true
+        can :read, Spree::ProductReview, approved: true
         cannot :create, Spree::ProductReview
-        cannot [:update, :destroy], Spree::ProductReview
+        cannot %i[update destroy], Spree::ProductReview
       end
     end
   end
 end
+

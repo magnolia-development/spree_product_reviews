@@ -19,7 +19,8 @@ class AddReviews < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :spree_product_reviews, :product_id, name: 'index_reviews_on_product_id'
-    add_index :spree_product_reviews, :variant_id, name: 'index_reviews_on_variant_id'
+    add_index :spree_product_reviews, :product_id, name: "index_reviews_on_product_id"
+    add_index :spree_product_reviews, :variant_id, name: "index_reviews_on_variant_id"
   end
 end
+

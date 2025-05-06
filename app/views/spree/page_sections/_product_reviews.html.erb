@@ -1,0 +1,61 @@
+<div class="container mx-auto py-8">
+  <h1 class="text-2xl font-bold mb-6"><%= Spree.t('product_reviews') %> - <%= @product.name %></h1>
+
+  <div class="mb-8">
+    <%= link_to Spree.t('new_product_review'), new_product_product_review_path(@product), class: 'btn-primary py-2 px-4 rounded-md' %>
+  </div>
+
+  <% if @product_reviews.any? %>
+    <div class="reviews-summary mb-6">
+      <div class="flex items-center mb-2">
+        <div class="text-xl font-bold mr-2">
+          <%= @product_reviews.average(:rating).to_f.round(1) %>
+        </div>
+        <div class="text-yellow-400 text-xl">
+          <% full_stars = @product_reviews.average(:rating).to_f.floor %>
+          <% half_star = (@product_reviews.average(:rating).to_f - full_stars) >= 0.5 %>
+          <%= '★' * full_stars %>
+          <%= '★' if half_star %>
+          <%= '☆' * (5 - full_stars - (half_star ? 1 : 0)) %>
+        </div>
+        <div class="ml-2 text-gray-600">
+          (<%= @product_reviews.count %> <%= 'review'.pluralize(@product_reviews.count) %>)
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-list">
+      <% @product_reviews.each do |review| %>
+        <div class="review-item border-b border-gray-200 py-4">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <h3 class="text-lg font-medium"><%= review.title %></h3>
+              <div class="text-yellow-400">
+                <%= '★' * review.rating %>
+                <%= '☆' * (5 - review.rating) %>
+              </div>
+            </div>
+            <div class="text-sm text-gray-500">
+              <%= l(review.created_at.to_date, format: :long) %>
+            </div>
+          </div>
+
+          <div class="review-content my-2">
+            <p><%= review.review %></p>
+          </div>
+
+          <% if review.show_identifier && review.user %>
+            <div class="review-author text-sm text-gray-600">
+              <%= Spree.t(:by) %> <%= review.user.email.split('@').first %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-gray-100 p-6 rounded-lg text-center">
+      <p class="text-lg text-gray-600"><%= Spree.t('no_reviews_yet') %></p>
+      <p class="mt-2"><%= Spree.t('be_the_first_to_review') %> <%= @product.name %></p>
+    </div>
+  <% end %>
+</div>

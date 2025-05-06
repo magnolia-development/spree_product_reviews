@@ -9,8 +9,7 @@ module Spree
       # before_action :add_breadcrumbs
 
       def index; end
-
-      private
     end
   end
 end
+
