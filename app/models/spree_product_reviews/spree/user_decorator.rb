@@ -2,7 +2,7 @@ module SpreeProductReviews
   module Spree
     module UserDecorator
       def self.prepended(base)
-        base.has_many :product_reviews, class_name: "Spree::ProductReview", dependent: :destroy
+        base.has_many :product_reviews, class_name: "Spree::ProductReview", dependent: :destroy, foreign_key: :user_id
       end
 
       def product_review_for(product)
@@ -18,6 +18,5 @@ module SpreeProductReviews
   end
 end
 
-# Spree::User.prepend SpreeProductReviews::Spree::UserDecorator
 Spree.user_class.prepend SpreeProductReviews::Spree::UserDecorator
 
