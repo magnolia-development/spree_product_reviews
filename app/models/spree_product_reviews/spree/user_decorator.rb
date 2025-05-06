@@ -14,8 +14,6 @@ module SpreeProductReviews
           spree_variants: { product_id: product.id }
         ).order('spree_orders.completed_at DESC').first&.completed_at
       end
-
-      ::Spree::Product.prepend self
     end
   end
 end

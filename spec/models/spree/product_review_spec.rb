@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Spree::ProductReview do
+RSpec.describe Spree::ProductReview, type: :model do
   context "validations" do
     it "is valid with valid attributes" do
       expect(build(:product_review)).to be_valid
