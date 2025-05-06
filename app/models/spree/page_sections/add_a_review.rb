@@ -1,8 +1,8 @@
 module Spree
   module PageSections
     class AddAReview < Spree::PageSection
-      TOP_PADDING_DEFAULT = 60
-      BOTTOM_PADDING_DEFAULT = 60
+      TOP_PADDING_DEFAULT = 30
+      BOTTOM_PADDING_DEFAULT = 30
       TOP_BORDER_WIDTH_DEFAULT = 0
       BOTTOM_BORDER_WIDTH_DEFAULT = 0
 
@@ -29,12 +29,7 @@ module Spree
       end
 
       def default_blocks
-        @default_blocks.presence || [
-          Spree::PageBlocks::Heading.new(
-            text: Spree.t(:add_a_review_heading),
-            preferred_text_alignment: "left",
-            preferred_bottom_padding: 30
-          ),
+        [
           Spree::PageBlocks::Text.new(
             text: Spree.t(:add_a_review_text),
             preferred_text_alignment: "left",

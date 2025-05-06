@@ -13,6 +13,10 @@ module Spree
     scope :approved, -> { where(approved: true) }
     scope :pending, -> { where(approved: false) }
 
+    def pending?
+      !approved?
+    end
+
     def approve!
       update(approved: true)
     end

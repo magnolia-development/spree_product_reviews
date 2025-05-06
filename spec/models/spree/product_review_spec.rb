@@ -76,6 +76,18 @@ RSpec.describe Spree::ProductReview, type: :model do
   context "instance methods" do
     let(:product_review) { create(:product_review) }
 
+    describe "#pending?" do
+      it "returns true if the review is pending" do
+        product_review.approved = false
+        expect(product_review.pending?).to be true
+      end
+
+      it "returns false if the review is approved" do
+        product_review.approved = true
+        expect(product_review.pending?).to be false
+      end
+    end
+
     describe "#approve!" do
       it "approves the review" do
         product_review.approve!
