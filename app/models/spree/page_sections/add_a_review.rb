@@ -14,7 +14,11 @@ module Spree
 
       preference :heading_size, :string, default: "large"
       preference :heading_alignment, :string, default: "left"
-      preference :display, :string, default: "stacked" # "stacked" or "inline"
+      preference :display, :string, default: "stacked"
+
+      validates :preferred_heading_size, inclusion: { in: %w[small medium large] }
+      validates :preferred_heading_alignment, inclusion: { in: %w[left center right] }
+      validates :preferred_display, inclusion: { in: %w[stacked inline] }
 
       def self.role
         "content"
