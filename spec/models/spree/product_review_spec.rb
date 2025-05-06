@@ -2,10 +2,8 @@ require "rails_helper"
 
 RSpec.describe Spree::ProductReview, type: :model do
   context "validations" do
-    let(:user) { create(:user) }
-
     it "is valid with valid attributes" do
-      expect(build(:product_review, user: user)).to be_valid
+      expect(build(:product_review)).to be_valid
     end
 
     it "is not valid without a product" do
