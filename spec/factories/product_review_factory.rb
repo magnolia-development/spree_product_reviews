@@ -9,7 +9,7 @@ FactoryBot.define do
     review { Faker::Lorem.paragraph(sentence_count: 2) }
     rating { rand(1..5) }
 
-    product_name { product.name }
+    product_name { Faker::Commerce.product_name }
     ip_address { Faker::Internet.ip_v4_address }
     locale { I18n.locale.to_s }
 
