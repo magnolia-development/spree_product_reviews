@@ -10,6 +10,11 @@ en:
     add_a_review_heading: "Leave a Review"
     thanks_for_review_heading: "Thank you for your review!"
     add_a_review_text: "We value your feedback! Please leave a review for this product."
+    product_review:
+      flash_messages:
+        create:
+          success: "Your review has been submitted and is pending approval."
+          error: "There was an error submitting your review. Please try again."
     page_blocks:
       product_review_form:
         button_text_default: "Add your review"

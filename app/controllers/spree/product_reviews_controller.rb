@@ -19,10 +19,10 @@ module Spree
       @product_review.product_name = @product.name
 
       if @product_review.save
-        flash[:success] = Spree.t("product_reviews.create.success", default: "Thank you for your review! It will be visible after approval.")
+        flash[:success] = Spree.t("spree.product_review.flash_messages.create.success")
         redirect_to spree.product_path(@product)
       else
-        flash.now[:error] = Spree.t("product_reviews.create.error", default: "There was a problem with your review.")
+        flash.now[:error] = Spree.t("spree.product_review.flash_messages.create.error")
         render :new
       end
     end
@@ -39,15 +39,10 @@ module Spree
 
     def product_review_params
       params.require(:product_review).permit(
-        :title,
-        :review,
         :rating,
-        :product_name,
-        :purchase_date,
-        :ip_address,
-        :locale,
+        :review,
         :show_identifier,
-        :variant_id
+        :title
       )
     end
 
