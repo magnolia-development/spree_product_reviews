@@ -6,6 +6,8 @@ module Spree
       TOP_BORDER_WIDTH_DEFAULT = 0
       BOTTOM_BORDER_WIDTH_DEFAULT = 0
 
+      preference :allow_unverified_purchase_reviews, :boolean, default: false
+
       preference :heading_no_review_yet, :string, default: Spree.t("add_a_review_heading")
       preference :heading_pending_review, :string, default: Spree.t("thanks_for_review_heading")
       preference :heading_review_approved, :string, default: Spree.t("thanks_for_review_heading")
