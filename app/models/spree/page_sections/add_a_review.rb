@@ -37,9 +37,9 @@ module Spree
             text: Spree.t(:add_a_review_text),
             preferred_text_alignment: "left",
             preferred_bottom_padding: 30,
-            preferred_width_desktop: "75",
+            preferred_width_desktop: "75"
           ),
-          Spree::PageBlocks::ProductReviewForm.new
+          Spree::PageBlocks::ProductReviewForm.new,
         ]
       end
 
@@ -62,3 +62,4 @@ module Spree
     end
   end
 end
+

@@ -1,8 +1,8 @@
 module Spree
   class ProductReviewsController < Spree::StoreController
     helper Spree::BaseHelper
-    before_action :load_product, only: [:index, :new, :create]
-    before_action :authenticate_user!, only: [:new, :create]
+    before_action :load_product, only: %i[index new create]
+    before_action :authenticate_user!, only: %i[new create]
 
     def new
       @product_review = Spree::ProductReview.new(product: @product)
@@ -19,10 +19,10 @@ module Spree
       @product_review.product_name = @product.name
 
       if @product_review.save
-        flash[:success] = Spree.t('product_reviews.create.success', default: 'Thank you for your review! It will be visible after approval.')
+        flash[:success] = Spree.t("product_reviews.create.success", default: "Thank you for your review! It will be visible after approval.")
         redirect_to spree.product_path(@product)
       else
-        flash.now[:error] = Spree.t('product_reviews.create.error', default: 'There was a problem with your review.')
+        flash.now[:error] = Spree.t("product_reviews.create.error", default: "There was a problem with your review.")
         render :new
       end
     end
@@ -52,10 +52,11 @@ module Spree
     end
 
     def authenticate_user!
-      if !spree_current_user
-        session[:spree_user_return_to] = request.fullpath
-        redirect_to spree.login_path, alert: Spree.t(:please_log_in)
-      end
+      return if spree_current_user
+
+      session[:spree_user_return_to] = request.fullpath
+      redirect_to spree.login_path, alert: Spree.t(:please_log_in)
     end
   end
 end
+

@@ -16,8 +16,9 @@ module Spree
       else
         can :read, Spree::ProductReview, public: true
         cannot :create, Spree::ProductReview
-        cannot [:update, :destroy], Spree::ProductReview
+        cannot %i[update destroy], Spree::ProductReview
       end
     end
   end
 end
+

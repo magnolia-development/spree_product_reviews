@@ -17,3 +17,4 @@ FactoryBot.define do
     show_identifier { false }
   end
 end
+

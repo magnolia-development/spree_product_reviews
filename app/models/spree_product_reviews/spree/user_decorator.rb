@@ -2,7 +2,7 @@ module SpreeProductReviews
   module Spree
     module UserDecorator
       def self.prepended(base)
-        base.has_many :product_reviews, class_name: 'Spree::ProductReview', dependent: :destroy
+        base.has_many :product_reviews, class_name: "Spree::ProductReview", dependent: :destroy
       end
 
       def product_review_for(product)
@@ -10,9 +10,9 @@ module SpreeProductReviews
       end
 
       def recent_purchase_date_for(product)
-        self.orders.joins(:line_items, :variants).where(
+        orders.joins(:line_items, :variants).where(
           spree_variants: { product_id: product.id }
-        ).order('spree_orders.completed_at DESC').first&.completed_at
+        ).order("spree_orders.completed_at DESC").first&.completed_at
       end
     end
   end
