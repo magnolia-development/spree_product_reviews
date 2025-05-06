@@ -1,9 +1,11 @@
 class Spree::ProductReview < Spree::Base
   belongs_to :product, class_name: "Spree::Product"
-  belongs_to :user, class_name: "Spree::User"
+  belongs_to :user, class_name: Spree.user_class.to_s
   belongs_to :variant, class_name: "Spree::Variant", optional: true
 
-  validates :rating, presence: true
+  validates :product, presence: true
+  validates :user, presence: true
+  validates :rating, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
   validates :title, presence: true
   validates :review, presence: true
 

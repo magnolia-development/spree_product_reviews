@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'spree_storefront', '>= 5.0.2'
   s.add_dependency 'spree_admin', '>= 5.0.2'
   s.add_dependency 'spree_extension'
+  s.add_dependency 'spree_auth_devise'
 
   s.add_development_dependency 'spree_dev_tools'
-  s.add_development_dependency 'spree_auth_devise'
   s.add_development_dependency 'faker'
 end

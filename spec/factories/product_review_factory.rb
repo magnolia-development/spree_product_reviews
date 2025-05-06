@@ -2,8 +2,8 @@ require "faker"
 
 FactoryBot.define do
   factory :product_review, class: Spree::ProductReview do
-    association :product
-    association :user
+    product
+    user
 
     title { Faker::Lorem.sentence(word_count: 3) }
     review { Faker::Lorem.paragraph(sentence_count: 2) }
