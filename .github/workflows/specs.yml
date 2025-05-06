@@ -7,10 +7,6 @@ on:
 jobs:
   test:
     env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-      DISABLE_SPRING: true
-    environment:
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
       BUNDLE_PATH: ~/spree/vendor/bundle
