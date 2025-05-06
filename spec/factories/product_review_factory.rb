@@ -1,12 +1,12 @@
 require "faker"
 
 FactoryBot.define do
-  factory :product_review do
+  factory :product_review, class: Spree::ProductReview do
     association :product
     association :user
 
-    title { faker.lorem.sentence(word_count: 3) }
-    review { faker.lorem.paragraph(sentence_count: 2) }
+    title { Faker::Lorem.sentence(word_count: 3) }
+    review { Faker::Lorem.paragraph(sentence_count: 2) }
     rating { rand(1..5) }
 
     product_name { product.name }

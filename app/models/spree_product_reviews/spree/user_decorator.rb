@@ -18,5 +18,7 @@ module SpreeProductReviews
   end
 end
 
-Spree::User.prepend SpreeProductReviews::Spree::UserDecorator
+if defined?(Spree::User)
+  Spree::User.prepend SpreeProductReviews::Spree::UserDecorator
+end
 

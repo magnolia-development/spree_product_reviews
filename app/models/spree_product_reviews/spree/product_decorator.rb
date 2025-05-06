@@ -8,4 +8,6 @@ module SpreeProductReviews
   end
 end
 
-Spree::Product.prepend SpreeProductReviews::Spree::ProductDecorator
+if defined?(Spree::Product)
+  Spree::Product.prepend SpreeProductReviews::Spree::ProductDecorator
+end
