@@ -2,7 +2,12 @@ require "bundler"
 Bundler::GemHelper.install_tasks
 
 require "rspec/core/rake_task"
-require "spree/testing_support/extension_rake"
+begin
+  require "spree/testing_support/extension_rake"
+rescue LoadError
+  puts "Could not load spree/testing_support/extension_rake, make sure you have spree_dev_tools installed"
+  exit(1)
+end
 
 RSpec::Core::RakeTask.new
 

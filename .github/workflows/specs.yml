@@ -31,9 +31,15 @@ jobs:
 
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
-
+        
+      - name: Debug available rake tasks
+        run: bundle exec rake --tasks
+        
       - name: Generate test application
-        run: bundle exec rake test_app
+        run: |
+          bundle config set --local path 'vendor/bundle'
+          bundle install --jobs 4 --retry 3
+          bundle exec rake --trace test_app
 
       - name: Set up database schema
         run: cd spec/dummy && bin/rails db:schema:load

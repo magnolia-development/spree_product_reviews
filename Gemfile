@@ -22,6 +22,7 @@ group :development do
   gem "rubocop-rails"
   gem "rubocop-rspec"
   gem "rubocop-rspec_rails"
+  gem "spree_dev_tools"
 end
 
 gemspec
