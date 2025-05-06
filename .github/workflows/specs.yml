@@ -41,7 +41,7 @@ jobs:
             echo "Using existing dummy app"
           else
             echo "Generating new dummy app"
-            bundle exec rake test_app
+            RAILS_ENV=test bundle exec rake test_app
           fi
 
       - name: Set up database schema

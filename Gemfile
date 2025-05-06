@@ -18,7 +18,7 @@ gem "pg" if ENV["DB"] == "postgres" || ENV["CI"]
 
 gem "sqlite3", ">= 2.0"
 
-group :development do
+group :development, :test do
   gem "rubocop-rails"
   gem "rubocop-rspec"
   gem "rubocop-rspec_rails"
