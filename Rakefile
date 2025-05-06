@@ -2,7 +2,7 @@ require "bundler"
 Bundler::GemHelper.install_tasks
 
 require "rspec/core/rake_task"
-require "spree/testing_support/common_rake"
+require "spree/testing_support/extension_rake"
 
 RSpec::Core::RakeTask.new
 
@@ -15,10 +15,8 @@ task :default do
 end
 
 desc "Generates a dummy app for testing"
-namespace :spree_product_reviews do
-  task :test_app, [:user_class] => :environment do |_t, args|
-    Spree::DummyGeneratorHelper.inject_extension_requirements = true
-    Rake::Task["common:test_app"].execute(args.with_defaults(install_admin: true, install_storefront: true))
-  end
+task test_app: :environment do
+  ENV["LIB_NAME"] = "spree_product_reviews"
+  Rake::Task["extension:test_app"].invoke
 end
 
