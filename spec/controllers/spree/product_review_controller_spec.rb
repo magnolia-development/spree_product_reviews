@@ -25,6 +25,14 @@ RSpec.describe Spree::ProductReviewsController, type: :controller do
       get :new, params: { product_id: product.slug }
       expect(response).to render_template("new")
     end
+
+    it "fails if the user is not authorized to create a new product review" do
+      allow(controller).to receive(:authorize!) { raise }
+
+      expect do
+        get :new, params: { product_id: product.slug }
+      end.to raise_error
+    end
   end
 
   describe "POST #create" do
@@ -46,6 +54,17 @@ RSpec.describe Spree::ProductReviewsController, type: :controller do
 
         expect(response).to redirect_to(spree.product_path(product))
         expect(flash[:success]).to eq(Spree.t("spree.product_review.flash_messages.create.success"))
+      end
+
+      it "fails if the user is not authorized to create a new product review" do
+        allow(controller).to receive(:authorize!) { raise }
+
+        expect do
+          post :create, params: {
+            product_id: product.slug,
+            product_review: product_review.attributes,
+          }
+        end.to raise_error
       end
     end
 

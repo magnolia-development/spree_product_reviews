@@ -18,6 +18,8 @@ module Spree
       @product_review.locale = I18n.locale.to_s
       @product_review.product_name = @product.name
 
+      authorize! :create, @product_review
+
       if @product_review.save
         flash[:success] = Spree.t("spree.product_review.flash_messages.create.success")
         redirect_to spree.product_path(@product)
